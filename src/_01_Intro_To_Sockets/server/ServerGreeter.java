@@ -12,7 +12,7 @@ public class ServerGreeter extends Thread {
 		ss = new ServerSocket(8080);
 		//*OPTIONAL* you can set a time limit for the server to wait by using the 
 		//  ServerSocket's setSoTimeout(int timeInMilliSeconds) method
-		ss.setSoTimeout(1000);
+		ss.setSoTimeout(5000);
 	}
 
 	public void run() {
@@ -42,10 +42,10 @@ public class ServerGreeter extends Thread {
 				//15. Close the client server
 				s.close();
 			} catch(SocketTimeoutException ste) {
-				System.out.println("socked timeout occurred.");
+				System.out.println("socket timeout occurred.");
 				var = false;
 			} catch(IOException ioe) {
-				System.out.println("IO exception occured.");
+				System.out.println("IO exception occurred.");
 				var = false;
 			}
 			//6. If the program catches a SockeTimeoutException, let the user know about it and set loop's boolean variable to false.
@@ -57,9 +57,10 @@ public class ServerGreeter extends Thread {
 	public static void main(String[] args) {
 		//16. In a new thread, create an object of the ServerGreeter class and start the thread. Don't forget the try-catch.
 		try {
-			Thread t = 
-		} catch () {
-			
+			(new ServerGreeter()).start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
