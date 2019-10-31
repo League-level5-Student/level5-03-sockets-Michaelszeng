@@ -1,11 +1,15 @@
 package _02_Chat_Application;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 import _01_Intro_To_Sockets.server.ServerGreeter;
 
@@ -30,14 +34,19 @@ public class ChatAppServer extends Thread {
 		}
 	}
 	public void run() {
+		Socket socket;
 		boolean connected = true;
 		while (connected) {
 			try {
-				Socket socket = serverSocket.accept();
-				System.out.println("Client has connected to server.");
-				String input = scanner.nextLine();
-				System.out.println("Server: " + input);
-				
+				socket = serverSocket.accept();
+				while (true) {
+					DataInputStream dis = new DataInputStream(socket.getInputStream());
+					System.out.println("Client: " + dis.readUTF());
+					DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+					String input = JOptionPane.showInputDialog("To Client: ");
+					System.out.println(input);
+					dos.writeUTF(input);
+				}
 			} catch(SocketTimeoutException ste) {
 				System.out.println("Socket Timeout Occurred");
 				connected = false;
@@ -46,6 +55,7 @@ public class ChatAppServer extends Thread {
 				connected = false;
 			}
 		}
+		
 	}
 	
 	public static void main(String[] args) {
