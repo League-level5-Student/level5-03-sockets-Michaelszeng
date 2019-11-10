@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 public class ChatAppClient {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		String ip = "192.168.7.204";
+		String ip = "192.168.7.126";
 		int portNum = 8080;
 		try {
 			Socket socket = new Socket(ip, portNum);

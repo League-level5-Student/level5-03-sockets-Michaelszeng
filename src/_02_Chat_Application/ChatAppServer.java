@@ -44,7 +44,7 @@ public class ChatAppServer extends Thread {
 					System.out.println("Client: " + dis.readUTF());
 					DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 					String input = JOptionPane.showInputDialog("To Client: ");
-					System.out.println(input);
+					System.out.println("Server: " + input);
 					dos.writeUTF(input);
 				}
 			} catch(SocketTimeoutException ste) {
